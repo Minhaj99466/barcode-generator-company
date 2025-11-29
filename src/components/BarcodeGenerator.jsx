@@ -112,33 +112,26 @@ const BarcodeGenerator = () => {
               margin: 0;
               padding: 0;
               width: 38mm;
-              height: 25mm;
+
               overflow: hidden;
             }
             .barcode-print-item {
               width: 38mm;
-              height: 25mm;
+
               display: flex;
               flex-direction: column;
               align-items: center;
               justify-content: center;
-              padding: 0;
-              margin: 0;
+              padding: 1.5mm;
               background: #fff;
               page-break-after: always;
               page-break-inside: avoid;
             }
-            .barcode-header {
-              width: 100%;
-              margin: 0;
-              padding: 0;
-            }
             .barcode-header h3 {
               margin: 0;
-              padding: 0;
               font-size: 7pt;
               font-weight: bold;
-              line-height: 1.2;
+              line-height: 0.6;
               color: #000;
               text-align: center;
               word-wrap: break-word;
@@ -146,10 +139,8 @@ const BarcodeGenerator = () => {
             }
             .product-name {
               font-size: 6pt;
-              margin: 0.4mm 0 0 0;
-              padding: 0;
               color: #333;
-              line-height: 1.2;
+              line-height: 0.6;
               text-align: center;
               word-wrap: break-word;
               width: 100%;
@@ -158,31 +149,26 @@ const BarcodeGenerator = () => {
               font-size: 7pt;
               font-weight: bold;
               color: #000;
-              margin: 0.4mm 0 0 0;
-              padding: 0;
-              line-height: 1.2;
+              margin: 0.5mm 0 0 0;
+              line-height: 1.1;
               text-align: center;
-              width: 100%;
             }
             .barcode-container {
               display: flex;
               justify-content: center;
               align-items: center;
               width: 100%;
-              margin: 0.6mm 0 0 0;
-              padding: 0;
             }
             .barcode-container svg {
               max-width: 100%;
-              max-height: 11mm;
+              max-height: 12mm;
               height: auto;
             }
             .barcode-footer {
               font-size: 6pt;
               color: #666;
-              margin: 0.4mm 0 0 0;
-              padding: 0;
-              line-height: 1.2;
+              margin-top: 0.5mm;
+              line-height: 1.1;
               text-align: center;
               width: 100%;
             }
