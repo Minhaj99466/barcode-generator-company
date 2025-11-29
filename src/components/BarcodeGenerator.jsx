@@ -112,7 +112,7 @@ const BarcodeGenerator = () => {
               margin: 0;
               padding: 0;
               width: 38mm;
-              height: 25mm;
+              height: 20mm;
               overflow: hidden;
             }
             .barcode-print-item {
