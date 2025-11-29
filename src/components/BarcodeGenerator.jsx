@@ -6,7 +6,7 @@ const BarcodeGenerator = () => {
   // Load last barcode from localStorage or start from 1000000000000
   const getInitialBarcode = () => {
     const saved = localStorage.getItem("lastBarcode");
-    return saved ? parseInt(saved, 10) : 10000000000;
+    return saved ? parseInt(saved, 10) : 1000000000000;
   };
 
   const [formData, setFormData] = useState({
@@ -125,8 +125,7 @@ body {
 
 /* COMPANY NAME */
 .barcode-header h3 {
-  margin: 0;
-  padding-top: 0.5mm;            /* Small margin on top */
+  margin: 0.5mm;
   font-size: 8pt;                /* Slightly bigger */
   font-weight: bold;
   text-align: center;
@@ -152,50 +151,18 @@ body {
   line-height: 1.1;
 }
 
- /* BARCODE */
- .barcode-container {
-   width: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin-top: 0.5mm;
-   padding: 0 3mm;                /* Quiet zone - essential for scanning */
- }
- 
- .barcode-container svg {
-   height: 14mm !important;
-   max-width: 100%;
-   display: block;
-   background: #ffffff !important;
- }
- 
- /* Only make barcode bars black, not the background */
- .barcode-container svg path {
-   fill: #000000 !important;
-   stroke: #000000 !important;
-   stroke-width: 1 !important;
- }
- 
- .barcode-container svg line {
-   stroke: #000000 !important;
-   stroke-width: 2.5 !important;
- }
- 
- /* Barcode text */
- .barcode-container svg text {
-   fill: #000000 !important;
- }
- 
- /* Barcode number below barcode - make it bigger */
- .barcode-footer {
-   font-size: 7pt !important;     /* Bigger font */
-   color: #000 !important;
-   margin-top: 0.5mm;
-   text-align: center;
-   width: 100%;
-   font-weight: 500;
-   line-height: 1.2;
- }
+/* BARCODE */
+.barcode-container {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;           /* Ensures barcode is centered */
+  margin-top: 0.5mm;
+}
+
+.barcode-container svg {
+  height: 14mm !important;   /* better */
+}
 
 
     </style>
@@ -215,9 +182,6 @@ body {
       )}</p>
       <div class="barcode-container">
         ${barcodeSvgHtml}
-      </div>
-      <div class="barcode-footer">
-        ${generatedBarcode.barcode}
       </div>
     </div>
   `;
@@ -246,9 +210,9 @@ body {
   };
 
   const handleResetBarcode = () => {
-    if (window.confirm("Reset barcode counter to 10000000000?")) {
-      setCurrentBarcode(10000000000);
-      localStorage.setItem("lastBarcode", "10000000000");
+    if (window.confirm("Reset barcode counter to 1000000000000?")) {
+      setCurrentBarcode(1000000000000);
+      localStorage.setItem("lastBarcode", "1000000000000");
     }
   };
 
@@ -256,7 +220,7 @@ body {
     const newValue = e.target.value;
     // Only update if it's a valid number
     if (newValue === "" || (!isNaN(newValue) && parseInt(newValue) >= 0)) {
-      const barcodeNum = newValue === "" ? 10000000000 : parseInt(newValue);
+      const barcodeNum = newValue === "" ? 1000000000000 : parseInt(newValue);
       setCurrentBarcode(barcodeNum);
       localStorage.setItem("lastBarcode", barcodeNum.toString());
     }
@@ -300,6 +264,8 @@ body {
             value={formData.amount}
             onChange={handleInputChange}
             placeholder="Enter amount"
+            step="0.01"
+            min="0"
             required
           />
         </div>
@@ -363,11 +329,11 @@ body {
                 <Barcode
                   value={generatedBarcode.barcode.toString()}
                   format="CODE128"
-                  width={2.5}
+                  width={3}
                   height={90}
                   displayValue={true}
                   fontSize={12}
-                  margin={20}
+                  margin={5}
                   background="#ffffff"
                   lineColor="#000000"
                   renderer="svg"
