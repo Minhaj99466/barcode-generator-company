@@ -99,7 +99,7 @@ const BarcodeGenerator = () => {
     <title>Print Barcodes - DT38x25</title>
     <style>
 @page {
-  size: 38mm 25mm; /* FIXED LABEL SIZE */
+  size: 38mm 25mm; 
   margin: 0;
 }
 
@@ -116,47 +116,53 @@ body {
   height: 25mm;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0.5mm;      /* SMALL padding */
+  justify-content: center;       /* FULL CENTER vertically */
+  align-items: center;           /* FULL CENTER horizontally */
+  padding: 0;
   overflow: hidden;
   page-break-after: always;
 }
 
+/* COMPANY NAME */
 .barcode-header h3 {
   margin: 0;
-  font-size: 5pt;
+  font-size: 6pt;                /* Slightly bigger */
   font-weight: bold;
   text-align: center;
   width: 100%;
   line-height: 1.1;
 }
 
+/* PRODUCT NAME */
 .product-name {
-  font-size: 4pt;
+  font-size: 6pt;                /* Bigger and more visible */
+  font-weight: 600;
   text-align: center;
-  margin: 0.2mm 0;
+  margin: 0.3mm 0 0.3mm 0;
   line-height: 1.1;
 }
 
+/* AMOUNT */
 .product-amount {
-  font-size: 6pt;
+  font-size: 7pt;                /* Slightly bigger */
   font-weight: bold;
   text-align: center;
-  margin: 0.2mm 0;
+  margin: 0.3mm 0;
   line-height: 1.1;
 }
 
+/* BARCODE */
 .barcode-container {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 0.3mm;
+  align-items: center;           /* Ensures barcode is centered */
+  margin-top: 0.5mm;
 }
 
 .barcode-container svg {
-  width: 100%;
-  height: 8mm !important; /* perfect fit */
+  width: 95%;                    /* Fit perfectly but not touch sides */
+  height: 10mm !important;       /* Taller barcode */
 }
 
     </style>
