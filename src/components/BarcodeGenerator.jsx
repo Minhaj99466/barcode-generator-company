@@ -126,7 +126,7 @@ body {
 /* COMPANY NAME */
 .barcode-header h3 {
   margin: 0;
-  font-size: 6pt;                /* Slightly bigger */
+  font-size: 8pt;                /* Slightly bigger */
   font-weight: bold;
   text-align: center;
   width: 100%;
@@ -161,7 +161,7 @@ body {
 }
 
 .barcode-container svg {
-  width: 95%;                    /* Fit perfectly but not touch sides */
+  width: 100%;                    /* Fit perfectly but not touch sides */
   height: 10mm !important;       /* Taller barcode */
 }
 
