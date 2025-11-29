@@ -119,68 +119,60 @@ const BarcodeGenerator = () => {
               width: 38mm;
               height: 25mm;
               display: flex;
+              flex-direction: column;
               align-items: center;
-              justify-content: space-between;
-              padding: 2mm;
+              justify-content: center;
+              padding: 1.5mm;
               background: #fff;
               page-break-after: always;
               page-break-inside: avoid;
             }
-            .barcode-left {
-              flex-shrink: 0;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 20mm;
-              height: 100%;
-            }
-            .barcode-left svg {
-              max-width: 100%;
-              max-height: 20mm;
-              height: auto;
-            }
-            .barcode-right {
-              flex: 1;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: flex-start;
-              padding-left: 2mm;
-              height: 100%;
-            }
             .barcode-header h3 {
               margin: 0;
-              font-size: 8pt;
+              font-size: 7pt;
               font-weight: bold;
-              line-height: 1.2;
+              line-height: 1.1;
               color: #000;
-              text-align: left;
+              text-align: center;
               word-wrap: break-word;
-              max-width: 16mm;
+              width: 100%;
             }
             .product-name {
-              font-size: 7pt;
-              margin: 1mm 0 0 0;
+              font-size: 6pt;
+              margin: 0.5mm 0 0 0;
               color: #333;
-              line-height: 1.2;
-              text-align: left;
+              line-height: 1.1;
+              text-align: center;
               word-wrap: break-word;
-              max-width: 16mm;
+              width: 100%;
             }
             .product-amount {
-              font-size: 9pt;
+              font-size: 7pt;
               font-weight: bold;
               color: #000;
+              margin: 0.5mm 0 0 0;
+              line-height: 1.1;
+              text-align: center;
+            }
+            .barcode-container {
               margin: 1mm 0 0 0;
-              line-height: 1.2;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+            }
+            .barcode-container svg {
+              max-width: 100%;
+              max-height: 12mm;
+              height: auto;
             }
             .barcode-footer {
               font-size: 6pt;
               color: #666;
-              margin-top: 1mm;
+              margin-top: 0.5mm;
               line-height: 1.1;
-              word-wrap: break-word;
-              max-width: 16mm;
+              text-align: center;
+              width: 100%;
             }
           </style>
         </head>
@@ -190,16 +182,15 @@ const BarcodeGenerator = () => {
     for (let i = 0; i < quantity; i++) {
       printContent += `
         <div class="barcode-print-item">
-          <div class="barcode-left">
+          <div class="barcode-header">
+            <h3>${generatedBarcode.companyName}</h3>
+          </div>
+          <p class="product-name">${generatedBarcode.productName}</p>
+          <p class="product-amount">${parseFloat(generatedBarcode.amount).toFixed(2)}</p>
+          <div class="barcode-container">
             ${barcodeSvgHtml}
           </div>
-          <div class="barcode-right">
-            <div class="barcode-header">
-              <h3>${generatedBarcode.companyName}</h3>
-            </div>
-            <p class="product-name">${generatedBarcode.productName}</p>
-            <p class="product-amount">$${parseFloat(generatedBarcode.amount).toFixed(2)}</p>
-          </div>
+
         </div>
       `
     }
