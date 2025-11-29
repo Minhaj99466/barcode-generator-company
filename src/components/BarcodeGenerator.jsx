@@ -126,6 +126,7 @@ body {
 /* COMPANY NAME */
 .barcode-header h3 {
   margin: 0;
+  padding-top: 0.5mm;            /* Small margin on top */
   font-size: 8pt;                /* Slightly bigger */
   font-weight: bold;
   text-align: center;
@@ -184,6 +185,17 @@ body {
  .barcode-container svg text {
    fill: #000000 !important;
  }
+ 
+ /* Barcode number below barcode - make it bigger */
+ .barcode-footer {
+   font-size: 7pt !important;     /* Bigger font */
+   color: #000 !important;
+   margin-top: 0.5mm;
+   text-align: center;
+   width: 100%;
+   font-weight: 500;
+   line-height: 1.2;
+ }
 
 
     </style>
@@ -203,6 +215,9 @@ body {
       )}</p>
       <div class="barcode-container">
         ${barcodeSvgHtml}
+      </div>
+      <div class="barcode-footer">
+        ${generatedBarcode.barcode}
       </div>
     </div>
   `;
