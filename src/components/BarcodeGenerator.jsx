@@ -96,58 +96,91 @@ const BarcodeGenerator = () => {
       <!DOCTYPE html>
       <html>
         <head>
-          <title>Print Barcodes</title>
+          <title>Print Barcodes - DT38X25</title>
           <style>
             @page {
-              size: A4;
-              margin: 10mm;
+              size: 38mm 25mm;
+              margin: 0;
+            }
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
             }
             body {
               font-family: Arial, sans-serif;
               margin: 0;
-              padding: 20px;
+              padding: 0;
+              width: 38mm;
+              height: 25mm;
+              overflow: hidden;
             }
             .barcode-print-item {
-              page-break-inside: avoid;
-              margin-bottom: 20px;
-              border: 3px solid #000;
-              padding: 25px;
-              text-align: center;
+              width: 38mm;
+              height: 25mm;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding: 2mm;
               background: #fff;
+              page-break-after: always;
+              page-break-inside: avoid;
+            }
+            .barcode-left {
+              flex-shrink: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 20mm;
+              height: 100%;
+            }
+            .barcode-left svg {
+              max-width: 100%;
+              max-height: 20mm;
+              height: auto;
+            }
+            .barcode-right {
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: flex-start;
+              padding-left: 2mm;
+              height: 100%;
             }
             .barcode-header h3 {
-              margin: 10px 0;
-              font-size: 24px;
+              margin: 0;
+              font-size: 8pt;
               font-weight: bold;
+              line-height: 1.2;
+              color: #000;
+              text-align: left;
+              word-wrap: break-word;
+              max-width: 16mm;
             }
             .product-name {
-              font-size: 18px;
-              margin: 8px 0;
+              font-size: 7pt;
+              margin: 1mm 0 0 0;
               color: #333;
+              line-height: 1.2;
+              text-align: left;
+              word-wrap: break-word;
+              max-width: 16mm;
             }
             .product-amount {
-              font-size: 22px;
+              font-size: 9pt;
               font-weight: bold;
               color: #000;
-              margin: 10px 0;
-            }
-            .barcode-container {
-              margin: 20px 0;
-              padding: 20px;
-              background: #fff;
-              border: 3px solid #000;
-              display: flex;
-              justify-content: center;
-              align-items: center;
+              margin: 1mm 0 0 0;
+              line-height: 1.2;
             }
             .barcode-footer {
-              margin-top: 15px;
-              font-size: 14px;
-              color: #333;
-            }
-            .barcode-container svg {
-              max-width: 100%;
-              height: auto;
+              font-size: 6pt;
+              color: #666;
+              margin-top: 1mm;
+              line-height: 1.1;
+              word-wrap: break-word;
+              max-width: 16mm;
             }
           </style>
         </head>
@@ -157,16 +190,18 @@ const BarcodeGenerator = () => {
     for (let i = 0; i < quantity; i++) {
       printContent += `
         <div class="barcode-print-item">
-          <div class="barcode-header">
-            <h3>${generatedBarcode.companyName}</h3>
-            <p class="product-name">${generatedBarcode.productName}</p>
-            <p class="product-amount">$${parseFloat(generatedBarcode.amount).toFixed(2)}</p>
-          </div>
-          <div class="barcode-container">
+          <div class="barcode-left">
             ${barcodeSvgHtml}
           </div>
-          <div class="barcode-footer">
-            <p><strong>Barcode: ${generatedBarcode.barcode}</strong></p>
+          <div class="barcode-right">
+            <div class="barcode-header">
+              <h3>${generatedBarcode.companyName}</h3>
+            </div>
+            <p class="product-name">${generatedBarcode.productName}</p>
+            <p class="product-amount">$${parseFloat(generatedBarcode.amount).toFixed(2)}</p>
+            <div class="barcode-footer">
+              <p>${generatedBarcode.barcode}</p>
+            </div>
           </div>
         </div>
       `
@@ -198,6 +233,16 @@ const BarcodeGenerator = () => {
     if (window.confirm('Reset barcode counter to 1000000000000?')) {
       setCurrentBarcode(1000000000000)
       localStorage.setItem('lastBarcode', '1000000000000')
+    }
+  }
+
+  const handleBarcodeChange = (e) => {
+    const newValue = e.target.value
+    // Only update if it's a valid number
+    if (newValue === '' || (!isNaN(newValue) && parseInt(newValue) >= 0)) {
+      const barcodeNum = newValue === '' ? 1000000000000 : parseInt(newValue)
+      setCurrentBarcode(barcodeNum)
+      localStorage.setItem('lastBarcode', barcodeNum.toString())
     }
   }
 
@@ -261,8 +306,17 @@ const BarcodeGenerator = () => {
         </div>
 
         <div className="barcode-preview">
-          <label>Next Barcode:</label>
-          <div className="barcode-number">{currentBarcode}</div>
+          <label htmlFor="currentBarcode">Current Barcode Number:</label>
+          <input
+            type="number"
+            id="currentBarcode"
+            value={currentBarcode}
+            onChange={handleBarcodeChange}
+            className="barcode-number-input"
+            min="0"
+            placeholder="Enter barcode number"
+          />
+          <small className="barcode-hint">Next product will use: {currentBarcode + 1}</small>
         </div>
 
         <div className="form-actions">
@@ -292,11 +346,11 @@ const BarcodeGenerator = () => {
                 <Barcode
                   value={generatedBarcode.barcode.toString()}
                   format="CODE128"
-                  width={3}
-                  height={120}
+                  width={2}
+                  height={80}
                   displayValue={true}
-                  fontSize={18}
-                  margin={10}
+                  fontSize={12}
+                  margin={5}
                   background="#ffffff"
                   lineColor="#000000"
                   renderer="svg"
