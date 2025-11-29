@@ -160,9 +160,17 @@ body {
   margin-top: 0.5mm;
 }
 
-.barcode-container svg {
-  height: 14mm !important;   /* better */
-}
+  .barcode-container svg {
+    display: block;
+    margin: 0 auto !important;
+    width: auto !important;
+    max-width: 100%;
+    height: 14mm !important;
+  }
+
+  .barcode-generator *:not(.barcode-print-item) {
+    display: none !important;
+  }
 
 
     </style>
@@ -285,72 +293,76 @@ body {
 
         <div className="barcode-preview">
           <label htmlFor="currentBarcode">Current Barcode Number:</label>
-          <input
-            type="number"
-            id="currentBarcode"
-            value={currentBarcode}
-            onChange={handleBarcodeChange}
-            className="barcode-number-input"
-            min="0"
-            placeholder="Enter barcode number"
-          />
+          <div className="barcode-input-row">
+            <input
+              type="number"
+              id="currentBarcode"
+              value={currentBarcode}
+              onChange={handleBarcodeChange}
+              className="barcode-number-input"
+              min="0"
+              placeholder="Enter barcode number"
+            />
+            <button type="submit" className="btn btn-primary">
+              Generate Barcode
+            </button>
+          </div>
           <small className="barcode-hint">
             Next product will use: {currentBarcode + 1}
           </small>
         </div>
-
-        <div className="form-actions">
-          <button type="submit" className="btn btn-primary">
-            Generate Barcode
-          </button>
-          <button
-            type="button"
-            onClick={handleResetBarcode}
-            className="btn btn-secondary">
-            Reset Counter
-          </button>
-        </div>
       </form>
 
-      {generatedBarcode && (
-        <div className="barcode-display print-section">
-          <div className="barcode-card">
-            <div className="barcode-header">
-              <h3>{generatedBarcode.companyName}</h3>
-              <p className="product-name">{generatedBarcode.productName}</p>
-              <p className="product-amount">
-                {parseFloat(generatedBarcode.amount).toFixed(2)} BHD
-              </p>
+      <div className="barcode-display print-section">
+        {generatedBarcode ? (
+          <>
+            <div className="barcode-card">
+              <div className="barcode-header">
+                <h3>{generatedBarcode.companyName}</h3>
+                <p className="product-name">{generatedBarcode.productName}</p>
+                <p className="product-amount">
+                  {parseFloat(generatedBarcode.amount).toFixed(2)} BHD
+                </p>
+              </div>
+              <div
+                className="barcode-wrapper zebra-barcode"
+                ref={barcodeSvgRef}>
+                {generatedBarcode.barcode && (
+                  <Barcode
+                    value={generatedBarcode.barcode.toString()}
+                    format="CODE128"
+                    width={3}
+                    height={90}
+                    displayValue={true}
+                    fontSize={12}
+                    margin={5}
+                    background="#ffffff"
+                    lineColor="#000000"
+                    renderer="svg"
+                  />
+                )}
+              </div>
+              <div className="barcode-footer">
+                <p>Barcode: {generatedBarcode.barcode}</p>
+                <p className="print-quantity-info">
+                  Print Quantity: {generatedBarcode.printQuantity}
+                </p>
+              </div>
             </div>
-            <div className="barcode-wrapper zebra-barcode" ref={barcodeSvgRef}>
-              {generatedBarcode.barcode && (
-                <Barcode
-                  value={generatedBarcode.barcode.toString()}
-                  format="CODE128"
-                  width={3}
-                  height={90}
-                  displayValue={true}
-                  fontSize={12}
-                  margin={5}
-                  background="#ffffff"
-                  lineColor="#000000"
-                  renderer="svg"
-                />
-              )}
-            </div>
-            <div className="barcode-footer">
-              <p>Barcode: {generatedBarcode.barcode}</p>
-              <p className="print-quantity-info">
-                Print Quantity: {generatedBarcode.printQuantity}
-              </p>
-            </div>
+            <button onClick={handlePrint} className="btn btn-print">
+              🖨️ Print {generatedBarcode.printQuantity}{" "}
+              {generatedBarcode.printQuantity === 1 ? "Copy" : "Copies"}
+            </button>
+          </>
+        ) : (
+          <div className="barcode-placeholder">
+            <p>
+              Fill in the form and click "Generate Barcode" to see the barcode
+              here
+            </p>
           </div>
-          <button onClick={handlePrint} className="btn btn-print">
-            🖨️ Print {generatedBarcode.printQuantity}{" "}
-            {generatedBarcode.printQuantity === 1 ? "Copy" : "Copies"}
-          </button>
-        </div>
-      )}
+        )}
+      </div>
 
       {productHistory.length > 0 && (
         <div className="product-history">

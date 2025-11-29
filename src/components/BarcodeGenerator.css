@@ -1,32 +1,59 @@
 .barcode-generator {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 15px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .barcode-generator {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  .barcode-form {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .barcode-display {
+    grid-column: 1;
+    grid-row: auto;
+  }
 }
 
 .barcode-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
+  overflow-y: auto;
+  padding-right: 10px;
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 5px;
 }
 
 .form-group label {
   font-weight: 600;
   color: #333;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
 }
 
 .form-group input {
-  padding: 12px 16px;
+  padding: 8px 12px;
   border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
 }
 
@@ -38,8 +65,8 @@
 
 .barcode-preview {
   background: #f8f9fa;
-  padding: 15px;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 6px;
   border: 2px dashed #667eea;
 }
 
@@ -47,7 +74,8 @@
   font-weight: 600;
   color: #667eea;
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
+  font-size: 0.85rem;
 }
 
 .barcode-number {
@@ -57,17 +85,23 @@
   font-family: 'Courier New', monospace;
 }
 
+.barcode-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 5px;
+}
+
 .barcode-number-input {
-  width: 100%;
-  padding: 12px 16px;
+  flex: 1;
+  padding: 8px 12px;
   border: 2px solid #667eea;
-  border-radius: 8px;
-  font-size: 1.5rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
   font-weight: bold;
   color: #333;
   font-family: 'Courier New', monospace;
   text-align: center;
-  margin-top: 8px;
 }
 
 .barcode-number-input:focus {
@@ -78,9 +112,9 @@
 
 .barcode-hint {
   display: block;
-  margin-top: 8px;
+  margin-top: 5px;
   color: #666;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   font-style: italic;
 }
 
@@ -90,16 +124,22 @@
   flex-wrap: wrap;
 }
 
+.barcode-input-row .btn {
+  flex: 0 0 auto;
+  min-width: 150px;
+  white-space: nowrap;
+}
+
 .btn {
-  padding: 12px 24px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   flex: 1;
-  min-width: 150px;
+  min-width: 120px;
 }
 
 .btn-primary {
@@ -125,7 +165,7 @@
 .btn-print {
   background: #28a745;
   color: white;
-  margin-top: 15px;
+  margin-top: 0;
 }
 
 .btn-print:hover {
@@ -136,9 +176,9 @@
 .btn-clear {
   background: #dc3545;
   color: white;
-  padding: 8px 16px;
+  padding: 10px 20px;
   font-size: 0.9rem;
-  min-width: auto;
+  min-width: 120px;
 }
 
 .btn-clear:hover {
@@ -146,49 +186,69 @@
 }
 
 .barcode-display {
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 10px;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.barcode-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: #f8f9fa;
+  border: 2px dashed #e0e0e0;
+  border-radius: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  color: #666;
+  font-size: 0.95rem;
 }
 
 .barcode-card {
   background: white;
   border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 30px;
+  border-radius: 8px;
+  padding: 15px;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .barcode-header h3 {
   color: #333;
-  font-size: 1.8rem;
-  margin-bottom: 10px;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
 }
 
 .barcode-header .product-name {
   color: #666;
-  font-size: 1.2rem;
-  margin-bottom: 8px;
+  font-size: 0.95rem;
+  margin-bottom: 5px;
   font-weight: 500;
 }
 
 .barcode-header .product-amount {
   color: #28a745;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .barcode-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
-  padding: 25px;
+  margin: 10px 0;
+  padding: 15px;
   background: #ffffff;
-  border-radius: 8px;
-  border: 3px solid #000000;
+  border-radius: 6px;
+  border: 2px solid #000000;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  min-height: 180px;
+  min-height: 120px;
 }
 
 .zebra-barcode {
@@ -220,9 +280,9 @@
 }
 
 .barcode-footer {
-  margin-top: 15px;
+  margin-top: 8px;
   color: #666;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .barcode-footer .print-quantity-info {
@@ -232,56 +292,60 @@
 }
 
 .product-history {
-  margin-top: 30px;
-  padding-top: 30px;
+  grid-column: 1 / -1;
+  margin-top: 10px;
+  padding-top: 10px;
   border-top: 2px solid #e0e0e0;
+  max-height: 200px;
+  display: flex;
+  flex-direction: column;
 }
 
 .history-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .history-header h3 {
   color: #333;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 .history-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  max-height: 400px;
+  gap: 8px;
   overflow-y: auto;
+  flex: 1;
 }
 
 .history-item {
   background: #f8f9fa;
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 4px solid #667eea;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border-left: 3px solid #667eea;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .history-info {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   flex-wrap: wrap;
   align-items: center;
 }
 
 .history-info strong {
   color: #333;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
 }
 
 .history-info span {
   color: #666;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
 }
 
 .history-info .history-quantity {
@@ -293,12 +357,12 @@
   font-family: 'Courier New', monospace;
   color: #667eea;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
 }
 
 .history-date {
   color: #999;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
 }
 
 /* Print Styles */
