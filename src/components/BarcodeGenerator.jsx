@@ -99,7 +99,7 @@ const BarcodeGenerator = () => {
           <title>Print Barcodes - DT38X25</title>
           <style>
             @page {
-              size: 38mm 38mm;
+              size: 38mm 42mm;
               margin: 0;
             }
             * {
