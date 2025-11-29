@@ -153,7 +153,7 @@ body {
 
 /* BARCODE */
 .barcode-container {
-  width: 95%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;           /* Ensures barcode is centered */
@@ -179,7 +179,7 @@ body {
       <p class="product-name">${generatedBarcode.productName}</p>
       <p class="product-amount">${parseFloat(generatedBarcode.amount).toFixed(
         2
-      )}</p>
+      )} BHD</p>
       <div class="barcode-container">
         ${barcodeSvgHtml}
       </div>
@@ -319,7 +319,7 @@ body {
               <h3>{generatedBarcode.companyName}</h3>
               <p className="product-name">{generatedBarcode.productName}</p>
               <p className="product-amount">
-                ${parseFloat(generatedBarcode.amount).toFixed(2)}
+                {parseFloat(generatedBarcode.amount).toFixed(2)} BHD
               </p>
             </div>
             <div className="barcode-wrapper zebra-barcode" ref={barcodeSvgRef}>
@@ -366,7 +366,7 @@ body {
                 <div className="history-info">
                   <strong>{product.productName}</strong>
                   <span>{product.companyName}</span>
-                  <span>${parseFloat(product.amount).toFixed(2)}</span>
+                  <span>{parseFloat(product.amount).toFixed(2)} BHD</span>
                   <span className="history-quantity">
                     Qty: {product.printQuantity || 1}
                   </span>
