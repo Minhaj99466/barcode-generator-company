@@ -1,0 +1,22 @@
+{
+  "name": "barcode-generator",
+  "version": "1.0.0",
+  "description": "Supermarket Barcode Generator Tool",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-barcode": "^1.3.2",
+    "jsbarcode": "^3.11.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8"
+  }
+}
+
